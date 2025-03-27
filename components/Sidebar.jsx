@@ -1,11 +1,16 @@
 "use client";
 import {assets} from "@/assets/assets";
+import {useAppContext} from "@/context/AppContext";
 import {useClerk, UserButton} from "@clerk/nextjs";
 import Image from "next/image";
-import React from "react";
+import React, {useState} from "react";
+import {ChatLable} from "./ChatLable";
 
 export const Sidebar = ({expand, setExpand}) => {
   const {openSignIn} = useClerk();
+  const {user} = useAppContext();
+  const [openMenu, setOpenMenu] = useState({id: null, open: false});
+
   return (
     <div
       className={`bg-[#212327] pt-7 transition-all z-50 max-md:absolute max-md:h-screen flex flex-col  justify-between ${
@@ -76,6 +81,7 @@ export const Sidebar = ({expand, setExpand}) => {
         >
           <p className='my-1'>Recents</p>
           {/* chatlable */}
+          <ChatLable openMenu={openMenu} setOpenMenu={setOpenMenu} />
         </div>
       </div>
       <div>
@@ -115,12 +121,23 @@ export const Sidebar = ({expand, setExpand}) => {
           )}
         </div>
         <div
-          onClick={openSignIn}
+          onClick={user ? null : openSignIn}
           className={`flex items-center ${
             expand ? "hover:bg-white/10 rounded-lg" : "justify-center w-full"
           } gap-3  mt-2 p-2 text-white/60 text-sm cursor-pointer`}
         >
-          <Image src={assets.profile_icon} alt='profile_icon' className='w-7' />
+          {user ? (
+            <UserButton />
+          ) : (
+            <>
+              <Image
+                src={assets.profile_icon}
+                alt='profile_icon'
+                className='w-7'
+              />
+            </>
+          )}
+
           {expand && <p className='text text-white font-medium'>My Profile</p>}
         </div>
       </div>
