@@ -1,8 +1,9 @@
 "use client";
 import {assets} from "@/assets/assets";
+import {PromtBox} from "@/components/PromtBox";
+import {Sidebar} from "@/components/Sidebar";
 import Image from "next/image";
 import {useState} from "react";
-import {Sidebar} from "./components/Sidebar";
 export default function Home() {
   const [expand, setExpand] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -43,6 +44,7 @@ export default function Home() {
             <div></div>
           )}
           {/* prompt box */}
+          <PromtBox isLording={isLording} setIsLording={setIsLording} />
           <p className='text-xs absolute bottom-1 text-gray-500'>
             Al-generated, powered by OpenAI
           </p>

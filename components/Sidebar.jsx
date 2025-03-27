@@ -1,9 +1,11 @@
 "use client";
 import {assets} from "@/assets/assets";
+import {useClerk, UserButton} from "@clerk/nextjs";
 import Image from "next/image";
 import React from "react";
 
 export const Sidebar = ({expand, setExpand}) => {
+  const {openSignIn} = useClerk();
   return (
     <div
       className={`bg-[#212327] pt-7 transition-all z-50 max-md:absolute max-md:h-screen flex flex-col  justify-between ${
@@ -76,15 +78,24 @@ export const Sidebar = ({expand, setExpand}) => {
           {/* chatlable */}
         </div>
       </div>
-
       <div>
-        <div>
+        <div
+          className={`flex items-center cursor-pointer group relative ${
+            expand
+              ? "gap-1 text-white/80 text-sm p-2.5 border border-primary rounded-lg hover:bg-white/10 cursor-pointer"
+              : "h-10 w-10 mx-auto rounded-lg hover:bg-gray-500/30"
+          }`}
+        >
           <Image
             className={` ${expand ? "w-5" : "w-6.5 mx-auto"}`}
             src={expand ? assets.phone_icon : assets.phone_icon_dull}
             alt='phone_icon '
           />
-          <div>
+          <div
+            className={`absolute -top-60 pb-8 ${
+              !expand && "-right-40"
+            } opacity-0 group-hover:opacity-100  group-hover:block  hidden transition`}
+          >
             <div className='relative w-max  text-sm text-white p-3 bg-black rounded-lg shadow-lg'>
               <Image src={assets.qrcode} alt='qrcode' className='w-44' />
               <p>Scan to get Deepseek app</p>
@@ -99,13 +110,18 @@ export const Sidebar = ({expand, setExpand}) => {
             <>
               {" "}
               <span className='text text-white font-medium'>Get App</span>
-              <Image
-                //   className={` ${expand ? "w-5" : "w-6.5 mx-auto"}`}
-                src={assets.new_icon}
-                alt='new_icon'
-              />
+              <Image src={assets.new_icon} alt='new_icon' />
             </>
           )}
+        </div>
+        <div
+          onClick={openSignIn}
+          className={`flex items-center ${
+            expand ? "hover:bg-white/10 rounded-lg" : "justify-center w-full"
+          } gap-3  mt-2 p-2 text-white/60 text-sm cursor-pointer`}
+        >
+          <Image src={assets.profile_icon} alt='profile_icon' className='w-7' />
+          {expand && <p className='text text-white font-medium'>My Profile</p>}
         </div>
       </div>
     </div>
