@@ -17,8 +17,8 @@ export const ChatLable = ({openMenu, setOpenMenu}) => {
         />
         <div
           className={`absolute ${
-            openMenu.open ? "" : "hidden"
-          } w-max -right-36 top-6 py-2 bg-gray-700 rounded-lg`}
+            openMenu.open ? "block" : "hidden"
+          } w-max -right-36 top-6 py-2 bg-gray-700 rounded-xl`}
         >
           <div className='flex items-center gap-3 px-3 py-3  hover:bg-white/10 rounded-lg'>
             <Image src={assets.pencil_icon} alt='pencil_icon' className='w-4' />
