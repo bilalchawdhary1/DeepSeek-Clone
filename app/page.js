@@ -1,5 +1,6 @@
 "use client";
 import {assets} from "@/assets/assets";
+import Message from "@/components/Message";
 import {PromtBox} from "@/components/PromtBox";
 import {Sidebar} from "@/components/Sidebar";
 import Image from "next/image";
@@ -28,7 +29,7 @@ export default function Home() {
               alt='chat_icon'
             />
           </div>
-          {messages.length === 0 ? (
+          {messages.length !== 0 ? (
             <>
               <div className='flex gap-3 items-center'>
                 <Image
@@ -41,7 +42,9 @@ export default function Home() {
               <p className='text-sm mt-2'>I can help you today?</p>
             </>
           ) : (
-            <div></div>
+            <div>
+              <Message role='ai' content='what is this next js' />
+            </div>
           )}
           {/* prompt box */}
           <PromtBox isLording={isLording} setIsLording={setIsLording} />
